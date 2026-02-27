@@ -43,7 +43,7 @@
       border-radius: 4px;
       width: 100%;
       max-width: 580px;
-      margin: -24px auto 0;
+      margin: 48px auto 0;
       padding: 44px 48px 48px;
       box-shadow: 0 8px 40px rgba(26,46,90,0.10), 0 2px 8px rgba(26,46,90,0.06);
       position: relative;
@@ -62,6 +62,21 @@
       height: 3px;
       background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
       border-radius: 4px 4px 0 0;
+    }
+
+    /* ── Card header ── */
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .card-subtitle {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 36px;
     }
 
     /* ── Form fields ── */
@@ -86,7 +101,6 @@
 
     input[type="text"],
     input[type="email"],
-    select,
     textarea {
       width: 100%;
       padding: 12px 16px;
@@ -103,14 +117,13 @@
 
     input[type="text"]:focus,
     input[type="email"]:focus,
-    select:focus,
     textarea:focus {
       border-color: var(--navy-mid);
       background: var(--white);
       box-shadow: 0 0 0 3px rgba(26,46,90,0.08);
     }
 
-    input.invalid, select.invalid, textarea.invalid {
+    input.invalid, textarea.invalid {
       border-color: var(--error);
       box-shadow: 0 0 0 3px rgba(192,57,43,0.08);
     }
@@ -126,19 +139,6 @@
       color: var(--error);
       margin-top: 5px;
       display: none;
-    }
-
-    /* Select wrapper */
-    .select-wrap { position: relative; }
-    .select-wrap::after {
-      content: '▾';
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--gold);
-      pointer-events: none;
-      font-size: 14px;
     }
 
     /* Divider */
@@ -192,7 +192,6 @@
     }
 
     .btn:active:not(:disabled) { transform: translateY(0); }
-
     .btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
     /* Status messages */
@@ -225,7 +224,6 @@
       text-align: center;
       padding: 16px 0 8px;
     }
-
     .success-overlay.show { display: flex; }
 
     .checkmark {
@@ -239,7 +237,6 @@
       margin-bottom: 20px;
       box-shadow: 0 4px 16px rgba(26,46,90,0.2);
     }
-
     .checkmark svg { width: 28px; height: 28px; stroke: var(--gold-light); stroke-width: 2.5; fill: none; }
 
     .success-overlay h2 {
@@ -248,7 +245,6 @@
       color: var(--navy);
       margin-bottom: 10px;
     }
-
     .success-overlay p {
       font-size: 14px;
       color: var(--muted);
@@ -270,7 +266,6 @@
       cursor: pointer;
       transition: background 0.2s, color 0.2s;
     }
-
     .btn-secondary:hover { background: var(--navy); color: var(--white); }
 
     /* Footer note */
@@ -281,47 +276,22 @@
       margin-top: 28px;
       line-height: 1.6;
     }
-
     .footer-note a { color: var(--navy-mid); text-decoration: underline; }
 
-    /* Setup instructions */
-    .setup-box {
-      background: #fffbf0;
-      border: 1px solid var(--gold-pale);
-      border-left: 3px solid var(--gold);
-      border-radius: 3px;
-      padding: 16px 20px;
-      margin-bottom: 28px;
-      font-size: 13px;
-      color: #5a4a1a;
-      line-height: 1.7;
-    }
-    .setup-box strong { color: var(--navy); }
-    .setup-box code {
-      background: rgba(201,168,76,0.15);
-      padding: 1px 5px;
-      border-radius: 2px;
-      font-size: 12px;
-    }
-
     @media (max-width: 640px) {
-      .card { margin: -16px 16px 0; padding: 32px 24px 36px; }
-      .banner { padding: 36px 20px 32px; }
+      .card { margin: 24px 16px 0; padding: 32px 24px 36px; }
     }
   </style>
 </head>
 <body>
 
-<!-- Card -->
-<div class="card" style="margin-top: 48px;">
+<div class="card">
 
-  <h1 style="font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);font-weight:700;margin-bottom:6px;">Capstone Project Confirmation</h1>
-  <p style="font-size:13.5px;color:var(--muted);margin-bottom:28px;">All fields are required.</p>
+  <!-- Title -->
+  <h1 class="card-title">Capstone Project Confirmation</h1>
+  <p class="card-subtitle">All fields are required.</p>
 
-  <https://script.google.com/macros/s/AKfycbw-V6hBIIeMvvOdGss2QreE-3kvwhsncOxCXtSYHR5tcpYN2C6_1AWKepjyRDlQND2R/exec>
-  </div>
-
-  <!-- Success overlay (shown after submission) -->
+  <!-- Success overlay -->
   <div class="success-overlay" id="successOverlay">
     <div class="checkmark">
       <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -331,7 +301,7 @@
     <button class="btn-secondary" onclick="resetForm()">Submit Another Response</button>
   </div>
 
-  <!-- The form -->
+  <!-- Form -->
   <form id="capstoneForm" novalidate>
 
     <div class="section-label">Student Information</div>
@@ -356,15 +326,9 @@
     <!-- Confirmed Sponsor -->
     <div class="field">
       <label for="sponsor">Confirmed Sponsor <span class="req">*</span></label>
-      <div class="select-wrap">
-        <select id="sponsor" name="sponsor">
-          <option value="" disabled selected>— Select status —</option>
-          <option value="Yes — Sponsor confirmed">Yes — Sponsor confirmed</option>
-          <option value="No — Still seeking a sponsor">No — Still seeking a sponsor</option>
-          <option value="In progress — Awaiting confirmation">In progress — Awaiting confirmation</option>
-        </select>
-      </div>
-      <div class="err-msg" id="sponsorErr">Please select your sponsor status.</div>
+      <input type="text" id="sponsor" name="sponsor" placeholder="e.g. Dr. Jane Smith, Head of Department"/>
+      <div class="field-hint">Enter the full name and role of your confirmed sponsor (e.g. Dr. Jane Smith, Head of Department).</div>
+      <div class="err-msg" id="sponsorErr">Please enter your sponsor's name.</div>
     </div>
 
     <!-- Project Title -->
@@ -375,9 +339,7 @@
       <div class="err-msg" id="titleErr">Please enter a project title.</div>
     </div>
 
-    <!-- Submit -->
     <button type="submit" class="btn" id="submitBtn">Submit Registration</button>
-
     <div class="status" id="statusMsg"></div>
 
   </form>
@@ -390,19 +352,15 @@
 </div>
 
 <script>
-  // ─────────────────────────────────────────────────────────────────
-  //  STEP 1: Replace this URL with your Google Apps Script Web App URL
-  //  See setup instructions below the form for how to create it.
-  // ─────────────────────────────────────────────────────────────────
-  const SCRIPT_URL = 'YOUR_SCRIPT_URL_HERE';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-V6hBIIeMvvOdGss2QreE-3kvwhsncOxCXtSYHR5tcpYN2C6_1AWKepjyRDlQND2R/exec';
 
-  const form       = document.getElementById('capstoneForm');
-  const submitBtn  = document.getElementById('submitBtn');
-  const statusMsg  = document.getElementById('statusMsg');
-  const overlay    = document.getElementById('successOverlay');
+  const form      = document.getElementById('capstoneForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+  const overlay   = document.getElementById('successOverlay');
 
-  // Simple validators
   function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
   function setError(inputId, errId, show) {
     const el = document.getElementById(inputId);
     const em = document.getElementById(errId);
@@ -414,7 +372,7 @@
   function validate() {
     const name    = document.getElementById('name').value.trim();
     const email   = document.getElementById('email').value.trim();
-    const sponsor = document.getElementById('sponsor').value;
+    const sponsor = document.getElementById('sponsor').value.trim();
     const title   = document.getElementById('projectTitle').value.trim();
 
     const v1 = setError('name',         'nameErr',    !name);
@@ -425,8 +383,7 @@
     return v1 && v2 && v3 && v4;
   }
 
-  // Clear error on input
-  ['name','email','sponsor','projectTitle'].forEach(id => {
+  ['name', 'email', 'sponsor', 'projectTitle'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
       document.getElementById(id).classList.remove('invalid');
     });
@@ -439,19 +396,13 @@
 
     if (!validate()) return;
 
-    if (SCRIPT_URL === 'YOUR_SCRIPT_URL_HERE') {
-      statusMsg.textContent = '⚠️ Setup needed: replace YOUR_SCRIPT_URL_HERE with your Google Apps Script URL (see instructions below).';
-      statusMsg.className = 'status error';
-      return;
-    }
-
     submitBtn.disabled = true;
     submitBtn.textContent = 'Submitting…';
 
     const payload = {
       name:         document.getElementById('name').value.trim(),
       email:        document.getElementById('email').value.trim(),
-      sponsor:      document.getElementById('sponsor').value,
+      sponsor:      document.getElementById('sponsor').value.trim(),
       projectTitle: document.getElementById('projectTitle').value.trim(),
       timestamp:    new Date().toLocaleString()
     };
@@ -464,9 +415,7 @@
         body: JSON.stringify(payload)
       });
 
-      // no-cors returns opaque response — assume success
       form.style.display = 'none';
-      document.getElementById('setupNotice').style.display = 'none';
       overlay.classList.add('show');
 
     } catch (err) {
@@ -485,76 +434,11 @@
     submitBtn.textContent = 'Submit Registration';
     statusMsg.className = 'status';
     statusMsg.style.display = 'none';
-    ['name','email','sponsor','projectTitle'].forEach(id =>
+    ['name', 'email', 'sponsor', 'projectTitle'].forEach(id =>
       document.getElementById(id).classList.remove('invalid')
     );
   }
 </script>
-
-<!-- ═══════════════════════════════════════════════════════════════════
-  GOOGLE SHEETS SETUP GUIDE
-  Copy the Apps Script below into your Google Sheet, deploy it,
-  then paste the Web App URL into SCRIPT_URL above.
-════════════════════════════════════════════════════════════════════ -->
-<!--
-╔══════════════════════════════════════════════════════════════════╗
-║  GOOGLE APPS SCRIPT — paste into your Sheet's Script Editor    ║
-╚══════════════════════════════════════════════════════════════════╝
-
-STEP 1: Open your Google Sheet
-STEP 2: Extensions → Apps Script
-STEP 3: Delete any existing code and paste the code below
-STEP 4: Click Save, then Deploy → New deployment
-STEP 5: Type: Web app | Execute as: Me | Who has access: Anyone
-STEP 6: Click Deploy, copy the Web App URL
-STEP 7: Replace YOUR_SCRIPT_URL_HERE in this HTML file with that URL
-
-─── Apps Script Code ────────────────────────────────────────────
-
-function doPost(e) {
-  try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-
-    // Add header row if sheet is empty
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow([
-        'Timestamp',
-        'Full Name',
-        'Email Address',
-        'Confirmed Sponsor',
-        'Project Title'
-      ]);
-      // Style the header row
-      var header = sheet.getRange(1, 1, 1, 5);
-      header.setBackground('#1a2e5a');
-      header.setFontColor('#ffffff');
-      header.setFontWeight('bold');
-      sheet.setFrozenRows(1);
-    }
-
-    var data = JSON.parse(e.postData.contents);
-
-    sheet.appendRow([
-      data.timestamp || new Date().toLocaleString(),
-      data.name        || '',
-      data.email       || '',
-      data.sponsor     || '',
-      data.projectTitle || ''
-    ]);
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'success' }))
-      .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ status: 'error', message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-─────────────────────────────────────────────────────────────────
--->
 
 </body>
 </html>
